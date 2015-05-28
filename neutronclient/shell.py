@@ -61,6 +61,7 @@ from neutronclient.neutron.v2_0.lb.v2 import listener as lbaas_listener
 from neutronclient.neutron.v2_0.lb.v2 import loadbalancer as lbaas_loadbalancer
 from neutronclient.neutron.v2_0.lb.v2 import member as lbaas_member
 from neutronclient.neutron.v2_0.lb.v2 import pool as lbaas_pool
+from neutronclient.neutron.v2_0.lb.v2 import condition as lbaas_condition
 from neutronclient.neutron.v2_0.lb import vip as lb_vip
 from neutronclient.neutron.v2_0 import metering
 from neutronclient.neutron.v2_0.nec import packetfilter
@@ -224,6 +225,11 @@ COMMAND_V2 = {
     'lbaas-member-create': lbaas_member.CreateMember,
     'lbaas-member-update': lbaas_member.UpdateMember,
     'lbaas-member-delete': lbaas_member.DeleteMember,
+    'lbaas-condition-list': lbaas_condition.ListCondition,
+    'lbaas-condition-show': lbaas_condition.ShowCondition,
+    'lbaas-condition-create': lbaas_condition.CreateCondition,
+    'lbaas-condition-update': lbaas_condition.UpdateCondition,
+    'lbaas-condition-delete': lbaas_condition.DeleteCondition,
     'lb-vip-list': lb_vip.ListVip,
     'lb-vip-show': lb_vip.ShowVip,
     'lb-vip-create': lb_vip.CreateVip,
