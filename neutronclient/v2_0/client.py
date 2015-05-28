@@ -372,6 +372,8 @@ class Client(ClientBase):
     lbaas_healthmonitor_path = "/lbaas/healthmonitors/%s"
     lbaas_members_path = lbaas_pool_path + "/members"
     lbaas_member_path = lbaas_pool_path + "/members/%s"
+    lbaas_rules_path = lbaas_listener_path + "/rules"
+    lbaas_rule_path = lbaas_listener_path + "/rules/%s"
 
     vips_path = "/lb/vips"
     vip_path = "/lb/vips/%s"
@@ -443,6 +445,7 @@ class Client(ClientBase):
                      'pools': 'pool',
                      'members': 'member',
                      'health_monitors': 'health_monitor',
+                     'rules': 'rule',
                      'quotas': 'quota',
                      'service_providers': 'service_provider',
                      'firewall_rules': 'firewall_rule',
@@ -1021,6 +1024,34 @@ class Client(ClientBase):
     def delete_lbaas_member(self, lbaas_member, lbaas_pool):
         """Deletes the specified lbaas_member."""
         return self.delete(self.lbaas_member_path % (lbaas_pool, lbaas_member))
+
+    @APIParamsCall
+    def list_lbaas_rules(self, lbaas_listener, retrieve_all=True, **_params):
+        """Fetches a list of all lbaas_rules for a tenant."""
+        return self.list('rules', self.lbaas_rules_path % lbaas_listener,
+                         retrieve_all, **_params)
+
+    @APIParamsCall
+    def show_lbaas_rule(self, lbaas_rule, lbaas_listener, **_params):
+        """Fetches information of a certain lbaas_rule."""
+        return self.get(self.lbaas_rule_path % (lbaas_listener, lbaas_rule),
+                        params=_params)
+
+    @APIParamsCall
+    def create_lbaas_rule(self, lbaas_listener, body=None):
+        """Creates an lbaas_rule."""
+        return self.post(self.lbaas_rules_path % lbaas_listener, body=body)
+
+    @APIParamsCall
+    def update_lbaas_rule(self, lbaas_rule, lbaas_listener, body=None):
+        """Updates a lbaas_rule."""
+        return self.put(self.lbaas_rule_path % (lbaas_listener, lbaas_rule),
+                        body=body)
+
+    @APIParamsCall
+    def delete_lbaas_rule(self, lbaas_rule, lbaas_listener):
+        """Deletes the specified lbaas_rule."""
+        return self.delete(self.lbaas_rule_path % (lbaas_listener, lbaas_rule))
 
     @APIParamsCall
     def list_vips(self, retrieve_all=True, **_params):
